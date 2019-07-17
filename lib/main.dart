@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_l10n_test/html_text.dart';
 import 'package:flutter_l10n_test/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:html/dom.dart' as dom;
 
 void main() => runApp(MyApp());
 
@@ -83,20 +82,13 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Text(L10n.of(context).flutterHtmlTitle), // flutter_html
             const SizedBox(height: 10),
-            Html(
-              data: L10n.of(context).countLabelHtml(
-                  _counter), // You have pushed the button $_counter times.
-              customTextAlign: (_) => TextAlign.center,
-              customTextStyle: (node, style) {
-                if (node is dom.Element) {
-                  switch (node.localName) {
-                    case 'strong':
-                      return style.copyWith(fontSize: 30);
-                    case 'em':
-                      return style.copyWith(color: Colors.blue);
-                  }
-                }
-                return style;
+            HtmlText(
+              // You have pushed the button $_counter times.
+              text: L10n.of(context).countLabelHtml(_counter),
+              textAlign: TextAlign.center,
+              elementStyles: const {
+                'strong': TextStyle(fontSize: 30),
+                'em': TextStyle(color: Colors.blue),
               },
             ),
           ],
