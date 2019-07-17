@@ -52,4 +52,12 @@ class L10n {
 
   String get separateTextsTitle =>
       Intl.message('Separate Text Widgets', name: 'separateTextsTitle');
+
+  String get flutterHtmlTitle =>
+      Intl.message('flutter_html', name: 'flutterHtmlTitle');
+
+  String countLabelHtml(num count) => Intl.message(
+      'You have <em>pushed</em> the button <strong>$count</strong> times.',
+      name: 'countLabelHtml',
+      args: [count]);
 }

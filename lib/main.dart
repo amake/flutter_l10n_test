@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_l10n_test/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:html/dom.dart' as dom;
 
 void main() => runApp(MyApp());
 
@@ -50,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: [
             _separateTextWidgets,
+            _htmlWidget,
           ],
         ),
       ),
@@ -70,6 +73,31 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               _counter.toString(),
               style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      );
+
+  Widget get _htmlWidget => Card(
+        child: Column(
+          children: [
+            Text(L10n.of(context).flutterHtmlTitle), // flutter_html
+            const SizedBox(height: 10),
+            Html(
+              data: L10n.of(context).countLabelHtml(
+                  _counter), // You have pushed the button $_counter times.
+              customTextAlign: (_) => TextAlign.center,
+              customTextStyle: (node, style) {
+                if (node is dom.Element) {
+                  switch (node.localName) {
+                    case 'strong':
+                      return style.copyWith(fontSize: 30);
+                    case 'em':
+                      return style.copyWith(color: Colors.blue);
+                  }
+                }
+                return style;
+              },
             ),
           ],
         ),
