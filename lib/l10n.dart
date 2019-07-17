@@ -49,4 +49,7 @@ class L10n {
 
   String get incrementButtonTooltip =>
       Intl.message('Increment', name: 'incrementButtonTooltip');
+
+  String get separateTextsTitle =>
+      Intl.message('Separate Text Widgets', name: 'separateTextsTitle');
 }

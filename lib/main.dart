@@ -47,16 +47,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(L10n.of(context).appTitle), // Flutter Demo Home Page
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              L10n.of(context).countLabel,
-            ),
-            Text(
-              _counter.toString(),
-              style: Theme.of(context).textTheme.display1,
-            ),
+        child: ListView(
+          children: [
+            _separateTextWidgets,
           ],
         ),
       ),
@@ -67,4 +60,18 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  Widget get _separateTextWidgets => Card(
+        child: Column(
+          children: [
+            Text(L10n.of(context).separateTextsTitle), // Separate Text Widgets
+            const SizedBox(height: 10),
+            Text(L10n.of(context).countLabel),
+            Text(
+              _counter.toString(),
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      );
 }
