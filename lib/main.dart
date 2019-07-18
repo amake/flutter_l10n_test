@@ -112,9 +112,13 @@ class RichTextCard extends StatelessWidget {
     return Card(
       child: RichText(
         text: TextSpan(
-          text: L10n.of(context).countLabel,
-          style: DefaultTextStyle.of(context).style,
+          // Can't specify an outer text: or the children will lose their fontFamily
+          // https://github.com/flutter/flutter/issues/35992
           children: [
+            TextSpan(
+              text: L10n.of(context).countLabel,
+              style: DefaultTextStyle.of(context).style,
+            ),
             TextSpan(
               text: count.toString(),
               style: Theme.of(context).textTheme.display1.copyWith(
