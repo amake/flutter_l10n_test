@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_l10n_test/html_text.dart';
 import 'package:flutter_l10n_test/l10n.dart';
+import 'package:flutter_l10n_test/markdown_text.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:fps/fps.dart';
 
 void main() => runApp(MyApp());
@@ -157,15 +157,14 @@ class MarkdownTextCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final markdownStyles = MarkdownStyleSheet.fromTheme(Theme.of(context));
     return Card(
-      child: MarkdownBody(
+      child: MarkdownText(
         // You have pushed the button $_counter times.
-        data: L10n.of(context).countLabelMarkdown(count),
-        styleSheet: markdownStyles.copyWith(
-          strong: markdownStyles.strong.copyWith(fontSize: 30),
-          em: markdownStyles.em.copyWith(color: _randomColor()),
-        ),
+        text: L10n.of(context).countLabelMarkdown(count),
+        elementStyles: {
+          'strong': const TextStyle(fontSize: 30),
+          'em': TextStyle(color: _randomColor()),
+        },
       ),
     );
   }
