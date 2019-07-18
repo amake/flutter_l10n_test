@@ -47,13 +47,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: Text(L10n.of(context).appTitle), // Flutter Demo Home Page
           bottom: TabBar(
             tabs: [
               Tab(text: L10n.of(context).defaultTabTitle), // Default
+              Tab(text: L10n.of(context).richTabTitle), // Rich
               Tab(text: L10n.of(context).htmlTabTitle), // HTML
             ],
           ),
@@ -61,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: TabBarView(
           children: [
             Infinite(() => SeparateTextsCard(_counter)),
+            Infinite(() => RichTextCard(_counter)),
             Infinite(() => HtmlTextCard(_counter)),
           ],
         ),
@@ -93,6 +95,32 @@ class SeparateTextsCard extends StatelessWidget {
                 .copyWith(color: _randomColor()),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class RichTextCard extends StatelessWidget {
+  const RichTextCard(this.count);
+  final num count;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: RichText(
+        text: TextSpan(
+          text: L10n.of(context).countLabel,
+          style: DefaultTextStyle.of(context).style,
+          children: [
+            TextSpan(
+              text: count.toString(),
+              style: Theme.of(context)
+                  .textTheme
+                  .display1
+                  .copyWith(color: _randomColor()),
+            ),
+          ],
+        ),
       ),
     );
   }

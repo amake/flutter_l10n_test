@@ -69,4 +69,6 @@ class L10n {
       Intl.message('$fps fps', name: 'fpsLabel', args: [fps]);
 
   String get fpsUnknownLabel => Intl.message('?', name: 'fpsUnknownLabel');
+
+  String get richTabTitle => Intl.message('Rich', name: 'richTabTitle');
 }
