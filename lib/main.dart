@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Tab(text: L10n.of(context).defaultTabTitle), // Default
               Tab(text: L10n.of(context).richTabTitle), // Rich
               Tab(text: L10n.of(context).htmlTabTitle), // HTML
-              Tab(text: 'Markdown'),
+              Tab(text: L10n.of(context).markdownTabTitle), // Markdown
             ],
           ),
         ),
