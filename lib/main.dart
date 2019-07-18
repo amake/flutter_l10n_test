@@ -146,11 +146,11 @@ class HtmlTextCard extends StatelessWidget {
         text: L10n.of(context).countLabelHtml(count),
         textAlign: TextAlign.center,
         elementStyles: {
-          'strong': const TextStyle(fontSize: 30),
-          'em': TextStyle(
-            color: _randomColor(),
+          'strong': const TextStyle(
+            fontSize: 30,
             fontFamily: _numberFont,
           ),
+          'em': TextStyle(color: _randomColor()),
         },
       ),
     );
@@ -169,11 +169,11 @@ class MarkdownTextCard extends StatelessWidget {
         // You have pushed the button $_counter times.
         text: L10n.of(context).countLabelMarkdown(count),
         elementStyles: {
-          'strong': const TextStyle(fontSize: 30),
-          'em': TextStyle(
-            color: _randomColor(),
+          'strong': const TextStyle(
+            fontSize: 30,
             fontFamily: _numberFont,
           ),
+          'em': TextStyle(color: _randomColor()),
         },
       ),
     );
