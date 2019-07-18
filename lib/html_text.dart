@@ -22,7 +22,7 @@ class HtmlText extends StatelessWidget {
     return Html(
       data: text,
       defaultTextStyle: style,
-      customTextAlign: textAlign == null ? null : (_) => TextAlign.center,
+      customTextAlign: textAlign == null ? null : (_) => textAlign,
       customTextStyle: elementStyles == null ? null : _applyElementStyle,
     );
   }
