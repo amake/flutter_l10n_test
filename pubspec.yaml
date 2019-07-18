@@ -28,3 +28,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: DM_Serif_Display
+      fonts:
+        - asset: assets/fonts/DM_Serif_Display/DMSerifDisplay-Regular.ttf
+        - asset: assets/fonts/DM_Serif_Display/DMSerifDisplay-RegularItalic.ttf
+          style: italic

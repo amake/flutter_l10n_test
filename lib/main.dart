@@ -92,10 +92,10 @@ class SeparateTextsCard extends StatelessWidget {
           Text(L10n.of(context).countLabel),
           Text(
             count.toString(),
-            style: Theme.of(context)
-                .textTheme
-                .display1
-                .copyWith(color: _randomColor()),
+            style: Theme.of(context).textTheme.display1.copyWith(
+                  color: _randomColor(),
+                  fontFamily: _numberFont,
+                ),
           ),
         ],
       ),
@@ -117,10 +117,10 @@ class RichTextCard extends StatelessWidget {
           children: [
             TextSpan(
               text: count.toString(),
-              style: Theme.of(context)
-                  .textTheme
-                  .display1
-                  .copyWith(color: _randomColor()),
+              style: Theme.of(context).textTheme.display1.copyWith(
+                    color: _randomColor(),
+                    fontFamily: _numberFont,
+                  ),
             ),
           ],
         ),
@@ -143,7 +143,10 @@ class HtmlTextCard extends StatelessWidget {
         textAlign: TextAlign.center,
         elementStyles: {
           'strong': const TextStyle(fontSize: 30),
-          'em': TextStyle(color: _randomColor()),
+          'em': TextStyle(
+            color: _randomColor(),
+            fontFamily: _numberFont,
+          ),
         },
       ),
     );
@@ -163,13 +166,17 @@ class MarkdownTextCard extends StatelessWidget {
         text: L10n.of(context).countLabelMarkdown(count),
         elementStyles: {
           'strong': const TextStyle(fontSize: 30),
-          'em': TextStyle(color: _randomColor()),
+          'em': TextStyle(
+            color: _randomColor(),
+            fontFamily: _numberFont,
+          ),
         },
       ),
     );
   }
 }
 
+const _numberFont = 'DM_Serif_Display';
 final _random = Random();
 Color _randomColor() => Color(_random.nextInt(0xFFFFFFFF));
 
