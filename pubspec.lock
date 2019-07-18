@@ -93,9 +93,11 @@ packages:
   flutter_html:
     dependency: "direct main"
     description:
-      name: flutter_html
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: font-family-fix
+      resolved-ref: c08f8481b784b2be22d6fd154aecdfe610896573
+      url: "https://github.com/amake/flutter_html.git"
+    source: git
     version: "0.10.4"
   flutter_localizations:
     dependency: "direct main"
