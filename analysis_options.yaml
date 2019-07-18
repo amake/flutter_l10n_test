@@ -1,6 +1,8 @@
 include: package:pedantic/analysis_options.yaml
 
 analyzer:
+  exclude:
+    - lib/l10n/*
   strong-mode:
     implicit-casts: false
     #implicit-dynamic: false
