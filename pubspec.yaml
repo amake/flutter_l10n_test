@@ -15,6 +15,7 @@ dependencies:
   flutter_cupertino_localizations: ^1.0.1
   intl: ^0.15.8
   flutter_html: ^0.10.4
+  flutter_markdown: ^0.2.0
   fps:
     git:
       url: https://github.com/amake/fps.git

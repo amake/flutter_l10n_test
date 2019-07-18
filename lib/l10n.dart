@@ -71,4 +71,8 @@ class L10n {
   String get fpsUnknownLabel => Intl.message('?', name: 'fpsUnknownLabel');
 
   String get richTabTitle => Intl.message('Rich', name: 'richTabTitle');
+
+  String countLabelMarkdown(num count) =>
+      Intl.message('You have *pushed* the button **$count** times.',
+          name: 'countLabelHtml', args: [count]);
 }

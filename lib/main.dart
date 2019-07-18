@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_l10n_test/html_text.dart';
 import 'package:flutter_l10n_test/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:fps/fps.dart';
 
 void main() => runApp(MyApp());
@@ -47,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: Text(L10n.of(context).appTitle), // Flutter Demo Home Page
@@ -56,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Tab(text: L10n.of(context).defaultTabTitle), // Default
               Tab(text: L10n.of(context).richTabTitle), // Rich
               Tab(text: L10n.of(context).htmlTabTitle), // HTML
+              Tab(text: 'Markdown'),
             ],
           ),
         ),
@@ -64,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Infinite(() => SeparateTextsCard(_counter)),
             Infinite(() => RichTextCard(_counter)),
             Infinite(() => HtmlTextCard(_counter)),
+            Infinite(() => MarkdownTextCard(_counter)),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -142,6 +145,27 @@ class HtmlTextCard extends StatelessWidget {
           'strong': const TextStyle(fontSize: 30),
           'em': TextStyle(color: _randomColor()),
         },
+      ),
+    );
+  }
+}
+
+class MarkdownTextCard extends StatelessWidget {
+  const MarkdownTextCard(this.count);
+
+  final num count;
+
+  @override
+  Widget build(BuildContext context) {
+    final markdownStyles = MarkdownStyleSheet.fromTheme(Theme.of(context));
+    return Card(
+      child: MarkdownBody(
+        // You have pushed the button $_counter times.
+        data: L10n.of(context).countLabelMarkdown(count),
+        styleSheet: markdownStyles.copyWith(
+          strong: markdownStyles.strong.copyWith(fontSize: 30),
+          em: markdownStyles.em.copyWith(color: _randomColor()),
+        ),
       ),
     );
   }
