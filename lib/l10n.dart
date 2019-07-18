@@ -40,8 +40,7 @@ class L10n {
     return Localizations.of<L10n>(context, L10n);
   }
 
-  String get appTitle =>
-      Intl.message('Flutter Demo Home Page', name: 'appTitle');
+  String get appTitle => Intl.message('Styled Text Test', name: 'appTitle');
 
   String get countLabel =>
       Intl.message('You have pushed the button this many times:',
@@ -60,4 +59,14 @@ class L10n {
       'You have <em>pushed</em> the button <strong>$count</strong> times.',
       name: 'countLabelHtml',
       args: [count]);
+
+  String get defaultTabTitle =>
+      Intl.message('Default', name: 'defaultTabTitle');
+
+  String get htmlTabTitle => Intl.message('HTML', name: 'htmlTabTitle');
+
+  String fpsLabel(num fps) =>
+      Intl.message('$fps fps', name: 'fpsLabel', args: [fps]);
+
+  String get fpsUnknownLabel => Intl.message('?', name: 'fpsUnknownLabel');
 }

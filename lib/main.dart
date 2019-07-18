@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_l10n_test/html_text.dart';
 import 'package:flutter_l10n_test/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fps/fps.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,55 +46,129 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(L10n.of(context).appTitle), // Flutter Demo Home Page
-      ),
-      body: Center(
-        child: ListView(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(L10n.of(context).appTitle), // Flutter Demo Home Page
+          bottom: TabBar(
+            tabs: [
+              Tab(text: L10n.of(context).defaultTabTitle), // Default
+              Tab(text: L10n.of(context).htmlTabTitle), // HTML
+            ],
+          ),
+        ),
+        body: TabBarView(
           children: [
-            _separateTextWidgets,
-            _htmlWidget,
+            Infinite(() => SeparateTextsCard(_counter)),
+            Infinite(() => HtmlTextCard(_counter)),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: L10n.of(context).incrementButtonTooltip, // Increment
-        child: Icon(Icons.add),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: L10n.of(context).incrementButtonTooltip, // Increment
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }
+}
 
-  Widget get _separateTextWidgets => Card(
-        child: Column(
-          children: [
-            Text(L10n.of(context).separateTextsTitle), // Separate Text Widgets
-            const SizedBox(height: 10),
-            Text(L10n.of(context).countLabel),
-            Text(
-              _counter.toString(),
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      );
+class SeparateTextsCard extends StatelessWidget {
+  const SeparateTextsCard(this.count);
+  final num count;
 
-  Widget get _htmlWidget => Card(
-        child: Column(
-          children: [
-            Text(L10n.of(context).flutterHtmlTitle), // flutter_html
-            const SizedBox(height: 10),
-            HtmlText(
-              // You have pushed the button $_counter times.
-              text: L10n.of(context).countLabelHtml(_counter),
-              textAlign: TextAlign.center,
-              elementStyles: const {
-                'strong': TextStyle(fontSize: 30),
-                'em': TextStyle(color: Colors.blue),
-              },
-            ),
-          ],
-        ),
-      );
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          // You have pushed the button this many times:
+          Text(L10n.of(context).countLabel),
+          Text(
+            count.toString(),
+            style: Theme.of(context)
+                .textTheme
+                .display1
+                .copyWith(color: _randomColor()),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HtmlTextCard extends StatelessWidget {
+  const HtmlTextCard(this.count);
+
+  final num count;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: HtmlText(
+        // You have pushed the button $_counter times.
+        text: L10n.of(context).countLabelHtml(count),
+        textAlign: TextAlign.center,
+        elementStyles: {
+          'strong': const TextStyle(fontSize: 30),
+          'em': TextStyle(color: _randomColor()),
+        },
+      ),
+    );
+  }
+}
+
+final _random = Random();
+Color _randomColor() => Color(_random.nextInt(0xFFFFFFFF));
+
+typedef WidgetGen = Widget Function();
+
+class Infinite extends StatelessWidget {
+  final WidgetGen gen;
+
+  const Infinite(this.gen);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        children: <Widget>[
+          ListView.builder(itemBuilder: (context, i) => gen()),
+          const Positioned(
+            right: 0,
+            top: 0,
+            child: FpsCounter(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FpsCounter extends StatelessWidget {
+  const FpsCounter();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(2)),
+        color: Colors.black.withOpacity(0.6),
+      ),
+      padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
+      child: StreamBuilder<num>(
+        stream: eachFrame().transform(const ComputeFps()),
+        builder: (context, snapshot) {
+          return Text(
+            snapshot.hasData
+                ? L10n.of(context).fpsLabel(snapshot.data.round()) // $fps fps
+                : L10n.of(context).fpsUnknownLabel, // ?
+            style: const TextStyle(color: Colors.white),
+          );
+        },
+      ),
+    );
+  }
 }
