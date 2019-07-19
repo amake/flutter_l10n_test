@@ -21,6 +21,7 @@ class HtmlText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Html(
       data: text,
+      shrinkToFit: true,
       defaultTextStyle: style,
       customTextAlign: textAlign == null ? null : (_) => textAlign,
       customTextStyle: elementStyles == null ? null : _applyElementStyle,

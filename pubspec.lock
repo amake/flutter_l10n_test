@@ -94,8 +94,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: font-family-fix
-      resolved-ref: c08f8481b784b2be22d6fd154aecdfe610896573
+      ref: shrink-to-fit
+      resolved-ref: d677ea2f72ef72c116e2d810ea728387fbff186c
       url: "https://github.com/amake/flutter_html.git"
     source: git
     version: "0.10.4"
