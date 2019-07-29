@@ -20,10 +20,28 @@ typedef MessageIfAbsent(String message_str, List args);
 class MessageLookup extends MessageLookupByLibrary {
   get localeName => 'zh_Hans';
 
+  static m0(count) => "You have <em>pushed</em> the button <strong>${count}</strong> times.";
+
+  static m1(count) => "You have *pushed* the button **${count}** times.";
+
+  static m2(fps) => "${fps} fps";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "appTitle" : MessageLookupByLibrary.simpleMessage("Flutter Demo Home Page"),
+    "appTitle" : MessageLookupByLibrary.simpleMessage("Styled Text Test"),
     "countLabel" : MessageLookupByLibrary.simpleMessage("You have pushed the button this many times:"),
-    "incrementButtonTooltip" : MessageLookupByLibrary.simpleMessage("Increment")
+    "countLabelHtml" : m0,
+    "countLabelMarkdown" : m1,
+    "defaultTabTitle" : MessageLookupByLibrary.simpleMessage("Default"),
+    "dependenciesTabTitle" : MessageLookupByLibrary.simpleMessage("Dependencies"),
+    "flutterHtmlTitle" : MessageLookupByLibrary.simpleMessage("flutter_html"),
+    "fpsLabel" : m2,
+    "fpsUnknownLabel" : MessageLookupByLibrary.simpleMessage("?"),
+    "htmlTabTitle" : MessageLookupByLibrary.simpleMessage("HTML"),
+    "incrementButtonTooltip" : MessageLookupByLibrary.simpleMessage("Increment"),
+    "markdownTabTitle" : MessageLookupByLibrary.simpleMessage("Markdown"),
+    "messageFromApp" : MessageLookupByLibrary.simpleMessage("This string is defined in the app."),
+    "richTabTitle" : MessageLookupByLibrary.simpleMessage("Rich"),
+    "separateTextsTitle" : MessageLookupByLibrary.simpleMessage("Separate Text Widgets")
   };
 }
