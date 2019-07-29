@@ -22,6 +22,8 @@ dependencies:
   fps:
     git:
       url: https://github.com/amake/fps.git
+  my_l10n_package:
+    path: ./my_l10n_package
 
 
 dev_dependencies:
