@@ -39,13 +39,21 @@ class L10nDelegate extends LocalizationsDelegate<L10n> {
 ///    [myMessageLookup]. The lookup is initially "empty".
 /// 2. We import the real intl class under an alias and delegate to it where
 ///    appropriate.
-/// 3. We call the default generated [initializeMessages], then immediately swap
-///    out the real [messageLookup] and [myMessageLookup] objects. This
-///    returns the real lookup to an uninitialized state for the application's
-///    localizations to load. (Yes, all this relies on localization delegate
-///    init happening sequentially.)
-/// 4. We exhort the consuming application to load our localization delegate
-///    before the application's.
+/// 3. We exhort the consuming application to load our localization delegate
+///    after the application's.
+/// 4. We rely on the timing of localization delegate inits to be interleaved:
+///    - First the app delegate's [load] will be called, and will proceed to
+///      call [initializeMessages]
+///    - Then the package delegate's load be called and proceed to same
+///    - The app's initializeMessages will return, having initialized
+///      messageLookup
+///    - The package's will return, having failed to initialize messageLookup
+///      because it was already initialized
+///    We then store the app's messageLookup, un-initialize messageLookup with
+///    our dummy, and call our initializeMessages again. When that returns we
+///    restore the original instance.
+///
+/// Yes, this is fragile! It has broken before!
 class Intl {
   // copied from the real intl package
   static String message(String message_str,
@@ -84,13 +92,17 @@ class L10n {
     final localeName = real_intl.Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       // HORRIBLE HACK! (see above)
-      // Steal the just-initialized lookup and keep it for ourselves.
-      // Then un-initialize the real lookup so the next localizations can load.
-      final uninitialized = myMessageLookup;
-      myMessageLookup = messageLookup;
-      messageLookup = uninitialized;
-      real_intl.Intl.defaultLocale = localeName;
-      return L10n();
+      // The messageLookup is now initialized with the app's table.
+      // Un-initialize it with our dummy lookup, call initializeMessages again,
+      // and then swap out the original with our package's.
+      final original = messageLookup;
+      messageLookup = myMessageLookup;
+      return initializeMessages(localeName).then((_) {
+        myMessageLookup = messageLookup;
+        messageLookup = original;
+        real_intl.Intl.defaultLocale = localeName;
+        return L10n();
+      });
     });
   }
 
