@@ -73,10 +73,17 @@ class L10n {
 
   String get richTabTitle => Intl.message('Rich', name: 'richTabTitle');
 
+  String get dependenciesTabTitle =>
+      Intl.message('Dependencies', name: 'dependenciesTabTitle');
+
   String countLabelMarkdown(num count) =>
       Intl.message('You have *pushed* the button **$count** times.',
           name: 'countLabelMarkdown', args: [count]);
 
   String get markdownTabTitle =>
       Intl.message('Markdown', name: 'markdownTabTitle');
+
+  String get messageFromApp =>
+      Intl.message('This string is defined in the app.',
+          name: 'messageFromApp');
 }

@@ -6,6 +6,7 @@ import 'package:flutter_l10n_test/l10n.dart';
 import 'package:flutter_l10n_test/markdown_text.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fps/fps.dart';
+import 'package:my_l10n_package/l10n.dart' as dep;
 
 void main() => runApp(MyApp());
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       localizationsDelegates: [
+        const dep.L10nDelegate(),
         const L10nDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -47,18 +49,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final tabs = [
+      Tab(text: L10n.of(context).defaultTabTitle), // Default
+      Tab(text: L10n.of(context).richTabTitle), // Rich
+      Tab(text: L10n.of(context).htmlTabTitle), // HTML
+      Tab(text: L10n.of(context).markdownTabTitle), // Markdown
+      Tab(text: L10n.of(context).dependenciesTabTitle), // Dependencies
+    ];
     return DefaultTabController(
-      length: 4,
+      length: tabs.length,
       child: Scaffold(
         appBar: AppBar(
           title: Text(L10n.of(context).appTitle), // Flutter Demo Home Page
           bottom: TabBar(
-            tabs: [
-              Tab(text: L10n.of(context).defaultTabTitle), // Default
-              Tab(text: L10n.of(context).richTabTitle), // Rich
-              Tab(text: L10n.of(context).htmlTabTitle), // HTML
-              Tab(text: L10n.of(context).markdownTabTitle), // Markdown
-            ],
+            isScrollable: true,
+            tabs: tabs,
           ),
         ),
         body: TabBarView(
@@ -67,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Infinite(() => RichTextCard(_counter)),
             Infinite(() => HtmlTextCard(_counter)),
             Infinite(() => MarkdownTextCard(_counter)),
+            const DependenciesTest(),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -230,6 +236,23 @@ class FpsCounter extends StatelessWidget {
             style: const TextStyle(color: Colors.white),
           );
         },
+      ),
+    );
+  }
+}
+
+class DependenciesTest extends StatelessWidget {
+  const DependenciesTest();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(L10n.of(context).messageFromApp),
+          Text(dep.L10n.of(context).messageFromPackage),
+        ],
       ),
     );
   }
