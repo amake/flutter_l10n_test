@@ -19,7 +19,7 @@ class MarkdownText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: How to apply textAlign?
+    // TODO(aaron): How to apply textAlign?
     return MarkdownBody(
       data: text,
       styleSheet: _genStyleSheet(context),
