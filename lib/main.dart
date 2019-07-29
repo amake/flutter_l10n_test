@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       localizationsDelegates: [
-        const dep.L10nDelegate(),
+        const dep.L10nDelegate(), // HORRIBLE HACK! This must come first
         const L10nDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
