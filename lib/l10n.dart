@@ -74,7 +74,7 @@ class L10n {
 
   String countLabelMarkdown(num count) =>
       Intl.message('You have *pushed* the button **$count** times.',
-          name: 'countLabelHtml', args: [count]);
+          name: 'countLabelMarkdown', args: [count]);
 
   String get markdownTabTitle =>
       Intl.message('Markdown', name: 'markdownTabTitle');
