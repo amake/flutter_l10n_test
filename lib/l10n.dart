@@ -1,3 +1,4 @@
+// -*- flycheck-checker: intl_translation; -*-
 import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
