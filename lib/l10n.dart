@@ -83,7 +83,8 @@ class L10n {
   String get markdownTabTitle =>
       Intl.message('Markdown', name: 'markdownTabTitle');
 
+  // This string is intentionally different from its translations for testing purposes
   String get messageFromApp =>
-      Intl.message('This string is defined in the app.',
+      Intl.message('This string is the default defined in the app 🐞',
           name: 'messageFromApp');
 }

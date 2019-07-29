@@ -40,6 +40,7 @@ class L10n {
     return Localizations.of<L10n>(context, L10n);
   }
 
+  // This string is intentionally different from its translations for testing purposes
   String get messageFromPackage =>
-      Intl.message('このストリングはパッケージ上で定義されている。', name: 'messageFromPackage');
+      Intl.message('このストリングはパッケージ上で定義されているデフォルト🐞', name: 'messageFromPackage');
 }
