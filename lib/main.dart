@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_l10n_test/html_text.dart';
@@ -233,7 +234,10 @@ class FpsCounter extends StatelessWidget {
             snapshot.hasData
                 ? L10n.of(context).fpsLabel(snapshot.data.round()) // $fps fps
                 : L10n.of(context).fpsUnknownLabel, // ?
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(
+              color: Colors.white,
+              fontFeatures: [FontFeature.tabularFigures()],
+            ),
           );
         },
       ),
